@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movie_app_demo/src/features/categories/view/page/categories_page.dart';
 import 'package:movie_app_demo/src/features/home/controller/home_controller.dart';
 import 'package:movie_app_demo/src/features/home/view/widgets/home_tabbar_widget.dart';
 import 'package:movie_app_demo/src/features/movie/view/page/movie_page.dart';
-import 'package:movie_app_demo/src/features/series/view/page/series_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -44,7 +44,8 @@ class HomePage extends StatelessWidget {
         controller: homeController.tabController,
         children: [
           MoviePage(),
-          SeriesPage(),
+          CategoriesPage(),
+
         ],
       ),
     );

@@ -5,7 +5,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
 
 
   late TabController tabController;
-  var pageList = ["All Movies", "Series",];
+  var pageList = ["All Movies", "Categories",];
 
 
 

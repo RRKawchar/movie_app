@@ -1,26 +1,35 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movie_app_demo/src/core/helper/helper_method.dart';
+import 'package:movie_app_demo/src/core/network/api_endpoints.dart';
+import 'package:movie_app_demo/src/core/network/api_handler.dart';
+import 'package:movie_app_demo/src/features/movie/model/movie_model.dart';
 
-class MovieController extends GetxController with GetSingleTickerProviderStateMixin{
 
-  late TabController tabController;
+class MovieController extends GetxController{
 
-  var movieList=["Action","Adventure","Animation","Comedy","Crime",
-    "Documentary","Drama","Family","Fantasy","History","Horror","Music",
-    "Mystery","Music","Romance","Science Fiction","TV Movie","Thriller","War","Western",];
+  RxList<MovieModel> popularMovies = <MovieModel>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    tabController=TabController(length: movieList.length, vsync: this);
-  }
-
-  @override
-  void dispose() {
-   tabController.dispose();
-    super.dispose();
+    fetchMovie();
   }
 
 
+
+  Future<void> fetchMovie()async{
+    try{
+      var response=await ApiHandler.handleResponse(await ApiHandler.getRequest(apiUrl: ApiEndpoints.popularMovie));
+      if(response !=null){
+        popularMovies.value=[];
+        for(var result in response['results']){
+          popularMovies.add(MovieModel.fromJson(result));
+        }
+      }
+    }catch(e){
+      kPrint(e);
+      throw e.toString();
+    }
+  }
 
 }
