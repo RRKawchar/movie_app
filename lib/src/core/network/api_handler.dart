@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart'as http;
 import 'package:movie_app_demo/src/core/helper/helper_method.dart';
+
 class ApiHandler{
 
 

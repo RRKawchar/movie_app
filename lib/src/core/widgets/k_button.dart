@@ -20,14 +20,16 @@ class KButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: height??60,
+        height: height ?? 60,
         padding: const EdgeInsets.all(5),
         alignment: Alignment.center,
-        width:width?? context.width,
+        width: width ?? context.width,
         decoration: BoxDecoration(
-            color: kPrimaryColor, borderRadius: BorderRadius.circular(10)),
+          color: kPrimaryColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Text(
-         text??"",
+          text ?? "",
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),

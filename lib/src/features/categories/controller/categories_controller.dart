@@ -11,6 +11,8 @@ class CategoriesController extends GetxController with GetSingleTickerProviderSt
   late TabController tabController;
   RxInt selectedIndex=0.obs;
   RxList<MovieModel> movies = <MovieModel>[].obs;
+  RxList<MovieModel> topRatedMovies = <MovieModel>[].obs;
+  RxList<MovieModel> bestSellerMovies = <MovieModel>[].obs;
 
   var movieList=["Action","Adventure","Animation","Comedy","Crime",
     "Documentary","Drama","Family","Fantasy","History","Horror","Music",
@@ -22,10 +24,12 @@ class CategoriesController extends GetxController with GetSingleTickerProviderSt
     tabController = TabController(length: movieList.length, vsync: this);
     tabController.addListener(() {
      selectedIndex.value=tabController.index;
-      getMovie(movieList[tabController.index]);
+     fetchCategoryMovie(movieList[tabController.index]);
     });
 
-    getMovie(movieList[0]);
+    fetchCategoryMovie(movieList[0]);
+    fetchTopRatedMovie();
+    fetchBestSellerMovies();
 
   }
 
@@ -37,14 +41,50 @@ class CategoriesController extends GetxController with GetSingleTickerProviderSt
 
 
 
-  Future<void> getMovie(String query)async{
+  Future<void> fetchCategoryMovie(String query)async{
     try{
 
-      var response=await ApiHandler.handleResponse(await ApiHandler.getRequest(apiUrl: ApiEndpoints.searchByMovie(query: query)));
+      var response=await ApiHandler.handleResponse(await ApiHandler.getRequest(apiUrl: ApiEndpoints.searchByCategory(query: query)));
       if(response !=null){
         movies.value=[];
         for(var result in response['results']){
           movies.add(MovieModel.fromJson(result));
+        }
+
+      }
+
+    }catch(e){
+      kPrint(e);
+      throw e.toString();
+    }
+  }
+
+  Future<void> fetchTopRatedMovie()async{
+    try{
+
+      var response=await ApiHandler.handleResponse(await ApiHandler.getRequest(apiUrl: ApiEndpoints.topRated));
+      if(response !=null){
+        topRatedMovies.value=[];
+        for(var result in response['results']){
+          topRatedMovies.add(MovieModel.fromJson(result));
+        }
+
+      }
+
+    }catch(e){
+      kPrint(e);
+      throw e.toString();
+    }
+  }
+
+  Future<void> fetchBestSellerMovies()async{
+    try{
+
+      var response=await ApiHandler.handleResponse(await ApiHandler.getRequest(apiUrl: ApiEndpoints.bestSeller));
+      if(response !=null){
+        bestSellerMovies.value=[];
+        for(var result in response['results']){
+          bestSellerMovies.add(MovieModel.fromJson(result));
         }
 
       }
