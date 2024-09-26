@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movie_app_demo/src/core/routes/app_routes.dart';
 import 'package:movie_app_demo/src/core/utils/constants.dart';
 import 'package:movie_app_demo/src/core/widgets/k_chached_network_image.dart';
-import 'package:movie_app_demo/src/features/details/view/page/movie_details.dart';
 import 'package:movie_app_demo/src/features/movie/controller/movie_controller.dart';
 
 class PopularMovieWidget extends StatelessWidget {
@@ -24,8 +24,9 @@ class PopularMovieWidget extends StatelessWidget {
                     children: [
                       Expanded(
                         child: InkWell(
-                          onTap: (){
-                            Get.to(MovieDetails(movieDetails: element,));
+                          onTap: () {
+                            Get.toNamed(AppRoutes.movieDetails,
+                                arguments: element);
                           },
                           child: Container(
                             padding: const EdgeInsets.all(0.2),

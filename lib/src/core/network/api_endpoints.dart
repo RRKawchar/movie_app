@@ -6,6 +6,10 @@ class ApiEndpoints{
   static String get upcomingMovie=> "https://api.themoviedb.org/3/movie/upcoming?&api_key=$_apiKey&language=en-US&page=1";
   static String get topRated=> "https://api.themoviedb.org/3/movie/top_rated?&api_key=$_apiKey&language=en-US&page=1";
   static String get bestSeller=> "https://api.themoviedb.org/3/tv/airing_today?&api_key=$_apiKey&language=en-US&page=1";
+  static String  moviesVideos({required int movieId})=> "https://api.themoviedb.org/3/movie/$movieId/videos?&api_key=$_apiKey&language=en-US";
+
+
+
 
 
 

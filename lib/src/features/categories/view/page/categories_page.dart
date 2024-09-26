@@ -12,7 +12,6 @@ class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CategoriesController categoriesController = Get.put(CategoriesController());
-
     return Scaffold(
       appBar: AppBar(
         bottom: PreferredSize(

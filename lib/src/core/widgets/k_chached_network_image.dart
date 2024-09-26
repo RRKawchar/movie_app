@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:movie_app_demo/src/core/extensions/build_context_extensions.dart';
 
 class KCachedNetworkImage extends StatelessWidget {

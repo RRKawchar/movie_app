@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app_demo/src/core/extensions/build_context_extensions.dart';
 import 'package:movie_app_demo/src/core/helper/helper_method.dart';
+import 'package:movie_app_demo/src/core/routes/app_routes.dart';
 import 'package:movie_app_demo/src/core/utils/color.dart';
 import 'package:movie_app_demo/src/core/utils/constants.dart';
 import 'package:movie_app_demo/src/core/widgets/k_button.dart';
 import 'package:movie_app_demo/src/core/widgets/k_chached_network_image.dart';
 import 'package:movie_app_demo/src/features/details/view/widgets/rating_widgets.dart';
 import 'package:movie_app_demo/src/features/movie/model/movie_model.dart';
+import 'package:movie_app_demo/src/features/videos/controller/videos_controller.dart';
+import 'package:movie_app_demo/src/features/videos/view/pages/movie_video_page.dart';
 
 class MovieDetails extends StatelessWidget {
   final MovieModel movieDetails;
@@ -18,6 +22,8 @@ class MovieDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    VideosController videosController =
+        Get.put(VideosController(movieId: movieDetails.id!));
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -45,12 +51,24 @@ class MovieDetails extends StatelessWidget {
                   ),
                 ),
                 Positioned(
+                    child: InkWell(
+                  onTap: () {
+                    Get.to(MovieVideoPage(
+                        movieId: movieDetails.id!,
+                        thumbnail: movieDetails.backdropPath!));
+                  },
+                  child: Icon(
+                    Icons.play_circle,
+                    size: 60,
+                  ),
+                )),
+                Positioned(
                   bottom: 0,
                   child: Text(
                     movieDetails.originalTitle ?? "No Title",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                )
+                ),
               ],
             ),
             Padding(
