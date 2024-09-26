@@ -9,9 +9,7 @@ class ApiHandler{
   static getRequest({required String apiUrl})async{
 
     var headers={
-      "Authorization":"Bearer eyJhbGciOiJIUzI1NiJ9.ehdWQiOiJiZmJhNWRmYzAyM2Q1YTYzMTIyYmMyJ5YTgyNWYxY2U2OCIsIm5iZi"
-          "I6MTcyNzAwMTE1OS43ODg5NDcsInN1YiI6IjY2ZWZlZmVkNGE3ZjBiMThiMDI2NGU3OSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZX"
-          "JzaW9uIjoxfQ.lhBxxD2EJ_5QS9eAg1lPJEjx03HAv9WVvtUM6-TKobs",
+      "Authorization":"",
       "Content-Type" : "application/json;charset=utf-8",
       "accept":"application/json"
 
