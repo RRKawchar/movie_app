@@ -2,12 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:movie_app_demo/src/core/extensions/build_context_extensions.dart';
+import 'package:movie_app_demo/src/core/utils/assets_path.dart';
 
 class KCachedNetworkImage extends StatelessWidget {
   final String imgUrl;
+  final Color? colorFilter;
   const KCachedNetworkImage({
     super.key,
     required this.imgUrl,
+    this.colorFilter,
 
   });
 
@@ -20,8 +23,8 @@ class KCachedNetworkImage extends StatelessWidget {
           image: DecorationImage(
             image: imageProvider,
             fit: BoxFit.cover,
-            colorFilter: const ColorFilter.mode(
-              Colors.transparent,
+            colorFilter: ColorFilter.mode(
+              colorFilter??Colors.transparent,
               BlendMode.colorBurn,
             ),
           ),
@@ -31,7 +34,7 @@ class KCachedNetworkImage extends StatelessWidget {
       errorWidget: (context, url, error) => SizedBox(
         height: context.height,
         width: context.width,
-        child: const Icon(Icons.error,size: 40,),
+        child:Image.asset(AssetsPath.movieIllustrations)
       ),
     );
   }

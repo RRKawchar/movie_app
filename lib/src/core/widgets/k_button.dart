@@ -4,15 +4,17 @@ import 'package:movie_app_demo/src/core/utils/color.dart';
 
 class KButton extends StatelessWidget {
   final VoidCallback? onTap;
-  final String? text;
+  final Widget? child;
   final double? width;
   final double? height;
+  final Color? bgColor;
   const KButton({
     super.key,
     this.onTap,
-    this.text,
+    this.child,
     this.width,
     this.height,
+    this.bgColor,
   });
 
   @override
@@ -25,13 +27,10 @@ class KButton extends StatelessWidget {
         alignment: Alignment.center,
         width: width ?? context.width,
         decoration: BoxDecoration(
-          color: kPrimaryColor,
+          color:bgColor?? kPrimaryColor,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Text(
-          text ?? "",
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
+        child: child,
       ),
     );
   }

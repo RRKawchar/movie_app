@@ -72,7 +72,11 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 20),
               KButton(
                 onTap: () {},
-                text: "Login",
+                child: Text(
+                   "Login",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                //text: "Login",
               )
             ],
           ),

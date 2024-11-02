@@ -2,11 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart'as http;
 import 'package:movie_app_demo/src/core/helper/helper_method.dart';
+import 'package:movie_app_demo/src/core/utils/private_keys.dart';
 
 class ApiHandler{
 
 
-  static getRequest({required String apiUrl})async{
+  static Future<http.Response> getRequest({required String apiUrl})async{
 
     var headers={
       "Authorization":"",
@@ -14,13 +15,28 @@ class ApiHandler{
       "accept":"application/json"
 
     };
-
     kPrint("You hit : $apiUrl");
-
     http.Response response=await http.get(Uri.parse(apiUrl),headers:headers);
 
     return response;
   }
+
+
+  static Future<http.Response> postRequest({required String apiUrl, required dynamic body})async{
+
+    Map<String,String> headers={
+      'accept' : 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $bearerToken',
+    };
+    kPrint("You hit : $apiUrl");
+    http.Response response=await http.post(Uri.parse(apiUrl),headers:headers, body: body);
+
+    return response;
+
+
+
+}
 
 
 

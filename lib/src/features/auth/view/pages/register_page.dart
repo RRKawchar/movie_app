@@ -104,7 +104,10 @@ class RegisterPage extends StatelessWidget {
                 onTap: (){
 
                 },
-                text: "Register",
+                child: Text(
+                  "Register",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
               )
             ],
           ),

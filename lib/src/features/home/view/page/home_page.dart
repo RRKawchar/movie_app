@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movie_app_demo/src/features/account/view/page/account_page.dart';
 import 'package:movie_app_demo/src/features/categories/view/page/categories_page.dart';
+import 'package:movie_app_demo/src/features/favorite/view/page/favorite_page.dart';
 import 'package:movie_app_demo/src/features/home/controller/home_controller.dart';
 import 'package:movie_app_demo/src/features/home/view/widgets/home_tabbar_widget.dart';
 import 'package:movie_app_demo/src/features/movie/view/page/movie_page.dart';
@@ -17,7 +19,9 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(()=>AccountPage());
+            },
             icon: const Icon(
               Icons.person_outline_outlined,
               size: 35,
@@ -37,7 +41,9 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.to(()=>FavoritePage());
+        },
         child: const Icon(Icons.search),
       ),
       body: TabBarView(
@@ -51,3 +57,6 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+
+

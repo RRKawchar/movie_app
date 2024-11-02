@@ -5,15 +5,19 @@ import 'package:movie_app_demo/src/core/utils/color.dart';
 import 'package:movie_app_demo/src/core/utils/constants.dart';
 import 'package:movie_app_demo/src/core/widgets/k_chached_network_image.dart';
 import 'package:movie_app_demo/src/features/videos/controller/videos_controller.dart';
+import 'package:movie_app_demo/src/features/videos/model/movie_video_model.dart';
 import 'package:movie_app_demo/src/features/videos/view/pages/videos_player_page.dart';
 
-class MovieVideoPage extends StatelessWidget {
+class MovieVideosListPage extends StatelessWidget {
   final int movieId;
   final String thumbnail;
-  const MovieVideoPage({
+  final String overView;
+  const MovieVideosListPage({
     super.key,
     required this.movieId,
     required this.thumbnail,
+    required this.overView,
+
   });
 
   @override
@@ -31,90 +35,64 @@ class MovieVideoPage extends StatelessWidget {
             itemCount: videosController.videoList.length,
             itemBuilder: (context, index) {
               return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  margin: const EdgeInsets.all(8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildThumbnailWidget( videosController
-                            .videoList[index].key
-                            .toString()),
-                        // Container(
-                        //   height: 180,
-                        //   width: Get.width,
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(5),
-                        //   ),
-                        //   child: Stack(
-                        //     clipBehavior: Clip.none,
-                        //     alignment: Alignment.center,
-                        //     children: [
-                        //       KCachedNetworkImage(
-                        //         imgUrl:
-                        //             "${AppConstants.apiImagePath}$thumbnail",
-                        //         colorFilter: Colors.black54,
-                        //       ),
-                        //       Positioned(
-                        //           child: InkWell(
-                        //               onTap: () {
-                        //                 Get.to(VideoPlayerPage(
-                        //                     movieId: movieId,
-                        //                     movieKey: videosController
-                        //                         .videoList[index].key
-                        //                         .toString()));
-                        //               },
-                        //               child: Icon(
-                        //                 Icons.play_circle,
-                        //                 size: 80,
-                        //                 color: Colors.blue,
-                        //               )))
-                        //     ],
-                        //   ),
-                        // ),
-                        SizedBox(height: 10),
-                        Text(
-                          videosController.videoList[index].name ?? "",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          children: [
-                            Text(videosController.videoList[index].official ==
-                                    true
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                margin: const EdgeInsets.all(8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildThumbnailWidget(
+                        videosController.videoList[index],
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        videosController.videoList[index].name ?? "",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            videosController.videoList[index].official == true
                                 ? "Official"
-                                : "Unofficial"),
-                            SizedBox(width: 5),
-                            Text(
-                              videosController.videoList[index].type ?? '',
-                              style: TextStyle(color: kPrimaryColor),
+                                : "Unofficial",
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            videosController.videoList[index].type ?? '',
+                            style: TextStyle(color: kPrimaryColor),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Published At:",
+                            style: TextStyle(color: kSecondaryColor),
+                          ),
+                          Text(
+                            dateTimeFormatted(
+                              videosController.videoList[index].publishedAt
+                                  .toString(),
                             ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Published At:",
-                              style: TextStyle(color: kSecondaryColor),
-                            ),
-                            Text(dateTimeFormatted(videosController
-                                .videoList[index].publishedAt
-                                .toString())),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ));
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
             },
           );
         },
       ),
     );
   }
-  Widget _buildThumbnailWidget(String movieKey){
+
+  Widget _buildThumbnailWidget(MovieVideosModel movieVideosList) {
     return Container(
       height: 180,
       width: Get.width,
@@ -126,22 +104,21 @@ class MovieVideoPage extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           KCachedNetworkImage(
-            imgUrl:
-            "${AppConstants.apiImagePath}$thumbnail",
+            imgUrl: "${AppConstants.apiImagePath}$thumbnail",
             colorFilter: Colors.black54,
           ),
           Positioned(
-              child: InkWell(
-                  onTap: () {
-                    Get.to(VideoPlayerPage(
-                        movieId: movieId,
-                        movieKey:movieKey));
-                  },
-                  child: Icon(
-                    Icons.play_circle,
-                    size: 80,
-                    color: Colors.blue,
-                  )))
+            child: InkWell(
+              onTap: () {
+                Get.to(VideoPlayerPage(movieId: movieId, movieKey: movieVideosList.key!,movieVideosList: movieVideosList,overView: overView,));
+              },
+              child: Icon(
+                Icons.play_circle,
+                size: 80,
+                color: Colors.blue,
+              ),
+            ),
+          )
         ],
       ),
     );

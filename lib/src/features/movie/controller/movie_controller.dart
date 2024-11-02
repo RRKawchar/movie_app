@@ -17,7 +17,6 @@ class MovieController extends GetxController{
     fetchMovie();
     fetchNowPlaying();
     fetchUpComingMovie();
-
   }
 
 

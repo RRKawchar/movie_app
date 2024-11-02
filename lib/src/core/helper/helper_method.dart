@@ -15,3 +15,15 @@ String formattedDate(String dateTime) {
   String year = yearFormat.format(parsedDate);
   return year;
 }
+
+
+String dateTimeFormatted(String dt){
+  DateTime dateTime = DateTime.parse(dt);
+  String formattedDate = DateFormat('dd MMMM yyyy, hh:mm a').format(dateTime);
+  return formattedDate;
+}
+String dateFormatted(String dt){
+  DateTime dateTime = DateTime.parse(dt);
+  String formattedDate = DateFormat('yyyy').format(dateTime);
+  return formattedDate;
+}
