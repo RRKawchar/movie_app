@@ -11,27 +11,15 @@ import 'package:movie_app_demo/src/features/movie/model/movie_model.dart';
 
 class FavoriteController extends GetxController {
   AccountController accountController = Get.find<AccountController>();
-  RxList<MovieModel> favoriteList=<MovieModel>[].obs;
+  RxList<MovieModel> favoriteList = <MovieModel>[].obs;
 
-  RxBool isLoading=false.obs;
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    ever(accountController.sessionId, (String? sessionId) {
-      if (sessionId != null && accountController.accountList.value.id != null) {
-        fetchFavoriteMovie();
-      }
-    });
-
-    ever(accountController.accountList, (_) {
-      if (accountController.sessionId.value != null && accountController.accountList.value.id != null) {
-        fetchFavoriteMovie();
-      }
-    });
-
+    fetchFavoriteMovie();
   }
-
 
   Future<void> fetchFavoriteMovie() async {
     try {
@@ -71,47 +59,62 @@ class FavoriteController extends GetxController {
     }
   }
 
-
   Future<void> addToFavorite({required int movieId}) async {
     try {
-      isLoading.value=true;
+      isLoading.value = true;
       Map<String, dynamic> body = {
         "media_type": "movie",
         "media_id": movieId,
         "favorite": true
       };
 
-
-      if(accountController.sessionId.value=="" || accountController.accountList.value.id==null){
-
-        Fluttertoast.showToast(msg: "You are not logged in, please login first!",backgroundColor: kSecondaryColor,);
-        Get.to(()=>AuthPage());
-      }else{
-        var response = await ApiHandler.handleResponse(
-          await ApiHandler.postRequest(
-            apiUrl: ApiEndpoints.addToFavorite(
-              accountId: accountController.accountList.value.id!,
-              sessionId:accountController.sessionId.value.toString(),
-            ),
-            body: jsonEncode(body),
-          ),
+      if (accountController.sessionId.value == "" ||
+          accountController.accountList.value.id == null) {
+        Fluttertoast.showToast(
+          msg: "You are not logged in, please login first!",
+          backgroundColor: kSecondaryColor,
         );
+        Get.to(() => AuthPage());
+      } else {
+        if (isFavorite(movieId)) {
+          Fluttertoast.showToast(
+            msg: "All Ready Added to Favorite",
+            backgroundColor: kSecondaryColor,
+          );
+        } else {
+          var response = await ApiHandler.handleResponse(
+            await ApiHandler.postRequest(
+              apiUrl: ApiEndpoints.addToFavorite(
+                accountId: accountController.accountList.value.id!,
+                sessionId: accountController.sessionId.value.toString(),
+              ),
+              body: jsonEncode(body),
+            ),
+          );
 
-        if(response['success']==true){
-
-          Fluttertoast.showToast(msg: "Added to favorite!",backgroundColor: kSuccessColor,);
-        }else{
-          Fluttertoast.showToast(msg: "Failed to add favorite",backgroundColor: kSecondaryColor,);
+          if (response['success'] == true) {
+            Fluttertoast.showToast(
+              msg: "Added to favorite!",
+              backgroundColor: kSuccessColor,
+            );
+            await fetchFavoriteMovie();
+          } else {
+            Fluttertoast.showToast(
+              msg: "Failed to add favorite",
+              backgroundColor: kSecondaryColor,
+            );
+          }
         }
       }
     } catch (e) {
       kPrint("Error while add to favorite $e");
       throw "Error while add to favorite $e";
-    }finally{
-      isLoading.value=false;
+    } finally {
+      isLoading.value = false;
     }
   }
-  
-  
-  
+
+  bool isFavorite(int movieId) {
+    return favoriteList.any((movie) => movie.id == movieId);
+  }
 }

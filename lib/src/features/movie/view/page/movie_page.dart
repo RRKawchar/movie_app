@@ -11,7 +11,7 @@ class MoviePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MovieController movieController = Get.put(MovieController());
+    Get.put(MovieController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

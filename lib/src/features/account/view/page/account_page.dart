@@ -26,14 +26,18 @@ class AccountPage extends StatelessWidget {
             ProfileSection(accountController: accountController),
             SizedBox(height: 8),
             ListTile(
-              onTap: (){
-                Get.to(()=>FavoritePage());
+              onTap: () {
+                Get.toNamed(AppRoutes.favoritePage);
               },
               leading: Icon(Icons.favorite_border),
               title: Text("Favorite"),
               trailing: Icon(Icons.arrow_forward_ios),
             ),
             ListTile(
+                onTap: () {
+                  Get.toNamed(AppRoutes.watchList);
+                },
+
               leading: Icon(Icons.video_collection),
               title: Text("WatchList"),
               trailing: Icon(Icons.arrow_forward_ios),

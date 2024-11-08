@@ -8,6 +8,7 @@ const kTextColor= Color(0xFFFFFFFF);
 const kGreyColor=Color(0xFF8C8C8C);
 const kFillColor=Color(0xFF4B4B4B);
 const kSuccessColor=Color(0xFF339966);
+const kFavoriteColor=Colors.blueAccent;
 
 
 

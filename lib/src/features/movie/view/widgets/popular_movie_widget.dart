@@ -25,8 +25,10 @@ class PopularMovieWidget extends StatelessWidget {
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            Get.toNamed(AppRoutes.movieDetails,
-                                arguments: element);
+                            Get.toNamed(
+                              AppRoutes.movieDetails,
+                              arguments: element,
+                            );
                           },
                           child: Container(
                             padding: const EdgeInsets.all(0.2),
@@ -37,8 +39,7 @@ class PopularMovieWidget extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: KCachedNetworkImage(
-                                imgUrl:
-                                    '${AppConstants.apiImagePath}${element.posterPath}',
+                                imgUrl:'${AppConstants.apiImagePath}${element.posterPath}',
                               ),
                             ),
                           ),

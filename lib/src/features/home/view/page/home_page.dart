@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:movie_app_demo/src/features/account/view/page/account_page.dart';
+import 'package:movie_app_demo/src/core/routes/app_routes.dart';
 import 'package:movie_app_demo/src/features/categories/view/page/categories_page.dart';
-import 'package:movie_app_demo/src/features/favorite/view/page/favorite_page.dart';
 import 'package:movie_app_demo/src/features/home/controller/home_controller.dart';
 import 'package:movie_app_demo/src/features/home/view/widgets/home_tabbar_widget.dart';
 import 'package:movie_app_demo/src/features/movie/view/page/movie_page.dart';
@@ -20,7 +19,7 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Get.to(()=>AccountPage());
+              Get.toNamed(AppRoutes.accountPage);
             },
             icon: const Icon(
               Icons.person_outline_outlined,
@@ -32,8 +31,7 @@ class HomePage extends StatelessWidget {
           context: context,
           tabController: homeController.tabController,
           tabs: homeController.pageList
-              .map(
-                (e) => Tab(
+              .map((e) => Tab(
                   text: e,
                 ),
               )
@@ -42,7 +40,6 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(()=>FavoritePage());
         },
         child: const Icon(Icons.search),
       ),
