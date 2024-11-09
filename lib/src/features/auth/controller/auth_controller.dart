@@ -5,7 +5,6 @@ import 'package:movie_app_demo/src/core/helper/helper_method.dart';
 import 'package:movie_app_demo/src/core/routes/app_routes.dart';
 import 'package:movie_app_demo/src/core/service/auth_service.dart';
 import 'package:movie_app_demo/src/core/service/local_storage_service.dart';
-import 'package:movie_app_demo/src/features/home/view/page/home_page.dart';
 import 'package:uni_links2/uni_links.dart';
 
 class AuthController extends GetxController{

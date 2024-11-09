@@ -5,6 +5,7 @@ import 'package:movie_app_demo/src/core/helper/helper_method.dart';
 import 'package:movie_app_demo/src/core/network/api_endpoints.dart';
 import 'package:movie_app_demo/src/core/network/api_handler.dart';
 import 'package:movie_app_demo/src/core/utils/color.dart';
+import 'package:movie_app_demo/src/core/utils/private_keys.dart';
 import 'package:movie_app_demo/src/features/account/controller/account_controller.dart';
 import 'package:movie_app_demo/src/features/movie/model/movie_model.dart';
 
@@ -41,10 +42,18 @@ class WatchListController extends GetxController {
             backgroundColor: kSecondaryColor,
           );
         } else {
+          //  //?&api_key=$apiKey&session_id=$sessionId
           var response = await ApiHandler.handleResponse(
             await ApiHandler.postRequest(
-              apiUrl: ApiEndpoints.addToWatchList(
-                  accountId: accountId, sessionId: sessionId),
+              apiUrl: ApiEndpoints.addToWatchList,
+              pathParams: {
+                "account_id":accountId,
+              },
+              queryParams: {
+                "api_key":apiKey,
+                "session_id":sessionId.toString()
+              },
+
               body: jsonEncode(body),
             ),
           );
@@ -84,10 +93,17 @@ class WatchListController extends GetxController {
 
       var response = await ApiHandler.handleResponse(
         await ApiHandler.getRequest(
-          apiUrl: ApiEndpoints.getWatchList(
-            accountId: accountId,
-            sessionId: sessionId.toString(),
-          ),
+          apiUrl: ApiEndpoints.getWatchList,
+          pathParams: {
+            "account_id":accountId
+          },
+          queryParams: {
+            "api_key":apiKey,
+            "session_id":sessionId.toString(),
+            "language":"en-US",
+            "page":"1",
+            "sort_by":"created_at.asc"
+          }
         ),
       );
 

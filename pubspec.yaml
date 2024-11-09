@@ -29,6 +29,7 @@ dependencies:
   shared_preferences: ^2.3.2
   uni_links2: ^0.6.0+2
   fluttertoast: ^8.2.8
+  share_plus: ^10.1.2
 
 dev_dependencies:
   flutter_test:

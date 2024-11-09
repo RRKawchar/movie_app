@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:movie_app_demo/src/core/extensions/build_context_extensions.dart';
 import 'package:movie_app_demo/src/core/helper/helper_method.dart';
-import 'package:movie_app_demo/src/core/service/video_downloader_service.dart';
-import 'package:movie_app_demo/src/core/utils/color.dart';
-import 'package:movie_app_demo/src/core/utils/constants.dart';
-import 'package:movie_app_demo/src/core/widgets/k_button.dart';
-import 'package:movie_app_demo/src/core/widgets/k_chached_network_image.dart';
 import 'package:movie_app_demo/src/features/favorite/controller/favorite_controller.dart';
 import 'package:movie_app_demo/src/features/videos/controller/videos_controller.dart';
 import 'package:movie_app_demo/src/features/videos/model/movie_video_model.dart';
-import 'package:movie_app_demo/src/features/videos/view/pages/movie_videos_list_page.dart';
 import 'package:movie_app_demo/src/features/videos/view/widgets/play_download_buttons.dart';
 import 'package:movie_app_demo/src/features/videos/view/widgets/recommended_movie.dart';
+import 'package:movie_app_demo/src/features/videos/view/widgets/watchlist_like_share_widget.dart';
 import 'package:movie_app_demo/src/features/watchList/controller/watchlist_controller.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -73,6 +66,7 @@ class VideoPlayerPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 8),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           /// Movie Title
                           _buildTitle(),
@@ -95,58 +89,11 @@ class VideoPlayerPage extends StatelessWidget {
                       movieKey: movieKey,
                     ),
                     SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                watchListController.addToWatchList(movieId);
-                              },
-                              child: Obx(
-                                () => watchListController.isLoading.value
-                                    ? Center(
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : Icon(watchListController
-                                            .isWatchlistAdded(movieId)
-                                        ? Icons.done
-                                        : Icons.add,),
-                              ),
-                            ),
-                            Text("Watchlist"),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            InkWell(
-                                onTap: () {
-                                  favoriteController.addToFavorite(
-                                      movieId: movieId);
-                                },
-                                child: Obx(
-                                  () => Icon(
-                                    favoriteController.isFavorite(movieId)
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                    color: kFavoriteColor,
-                                  ),
-                                )),
-                            Obx(
-                              () => Text(favoriteController.isFavorite(movieId)
-                                  ? "Liked"
-                                  : "Like"),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Icon(Icons.mobile_screen_share),
-                            Text("Share")
-                          ],
-                        ),
-                      ],
+                    WatchlistLikeShareWidget(
+                      favoriteController: favoriteController,
+                      watchListController: watchListController,
+                      movieId: movieId,
+                      movieKey: movieKey,
                     ),
                     SizedBox(height: 10),
                     Divider(),

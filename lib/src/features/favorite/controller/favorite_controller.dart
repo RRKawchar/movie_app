@@ -5,6 +5,7 @@ import 'package:movie_app_demo/src/core/helper/helper_method.dart';
 import 'package:movie_app_demo/src/core/network/api_endpoints.dart';
 import 'package:movie_app_demo/src/core/network/api_handler.dart';
 import 'package:movie_app_demo/src/core/utils/color.dart';
+import 'package:movie_app_demo/src/core/utils/private_keys.dart';
 import 'package:movie_app_demo/src/features/account/controller/account_controller.dart';
 import 'package:movie_app_demo/src/features/auth/view/pages/auth_page.dart';
 import 'package:movie_app_demo/src/features/movie/model/movie_model.dart';
@@ -35,10 +36,17 @@ class FavoriteController extends GetxController {
 
       var response = await ApiHandler.handleResponse(
         await ApiHandler.getRequest(
-          apiUrl: ApiEndpoints.getFavoriteMovie(
-            accountId: accountId,
-            sessionId: sessionId.toString(),
-          ),
+          apiUrl: ApiEndpoints.getFavoriteMovie,
+          pathParams: {
+            "account_id":accountId.toInt(),
+          },
+          queryParams: {
+            "language": "en-US",
+            "page": "1",
+            "api_key": apiKey,
+            "session_id": sessionId.toString(),
+            "sort_by": "created_at.asc",
+          },
         ),
       );
 
@@ -84,11 +92,15 @@ class FavoriteController extends GetxController {
         } else {
           var response = await ApiHandler.handleResponse(
             await ApiHandler.postRequest(
-              apiUrl: ApiEndpoints.addToFavorite(
-                accountId: accountController.accountList.value.id!,
-                sessionId: accountController.sessionId.value.toString(),
-              ),
+              apiUrl: ApiEndpoints.addToFavorite,
               body: jsonEncode(body),
+              pathParams: {
+                "account_id":accountController.accountList.value.id,
+              },
+              queryParams: {
+                "api_key": apiKey,
+                "session_id": accountController.sessionId.value.toString(),
+              },
             ),
           );
 

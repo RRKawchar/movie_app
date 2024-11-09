@@ -5,9 +5,6 @@ import 'package:movie_app_demo/src/core/di/app_binding.dart';
 import 'package:movie_app_demo/src/core/routes/app_routes.dart';
 import 'package:movie_app_demo/src/core/theme/app_theme.dart';
 import 'package:movie_app_demo/src/core/utils/constants.dart';
-import 'package:movie_app_demo/src/features/auth/view/pages/auth_page.dart';
-import 'package:movie_app_demo/src/features/videos/view/pages/test_one_page.dart';
-import 'package:movie_app_demo/src/features/videos/view/pages/test_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +35,7 @@ class MyApp extends StatelessWidget {
             theme: darkTheme,
             themeMode: ThemeMode.dark,
             initialBinding: AppBindings(),
-            initialRoute: AppRoutes.authPage,
+            initialRoute: AppRoutes.splashPage,
             getPages: AppRoutes.getPage(),
             // home: TestOnePage()
 

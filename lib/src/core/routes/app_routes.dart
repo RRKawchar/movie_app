@@ -6,11 +6,13 @@ import 'package:movie_app_demo/src/features/auth/view/pages/register_page.dart';
 import 'package:movie_app_demo/src/features/details/view/page/movie_details.dart';
 import 'package:movie_app_demo/src/features/favorite/view/page/favorite_page.dart';
 import 'package:movie_app_demo/src/features/home/view/page/home_page.dart';
-import 'package:movie_app_demo/src/features/videos/view/pages/movie_videos_list_page.dart';
+import 'package:movie_app_demo/src/features/search/view/page/search_page.dart';
+import 'package:movie_app_demo/src/features/splash/view/page/splash_page.dart';
 import 'package:movie_app_demo/src/features/watchList/view/page/watchlist_page.dart';
 
 class AppRoutes {
-  static const String authPage = "/";
+  static const String splashPage = "/";
+  static const String authPage = "/auth-page";
   static const String homePage = "/home-page";
   static const String registerPage = "/register-page";
   static const String loginPage = "/login-page";
@@ -18,9 +20,15 @@ class AppRoutes {
   static const String favoritePage = "/favorite-page";
   static const String accountPage = "/account-page";
   static const String watchList = "/watchlist-page";
-  //static const String moviesVideoPage = "/movie-video-page";
+  static const String searchPage = "/search-page";
+
 
   static List<GetPage> getPage() => [
+        GetPage(
+          name: AppRoutes.splashPage,
+          page: () => const SplashPage(),
+          transition: Transition.rightToLeft,
+        ),
         GetPage(
           name: AppRoutes.homePage,
           page: () => const HomePage(),
@@ -41,11 +49,7 @@ class AppRoutes {
           page: () => MovieDetails(movieModel: Get.arguments),
           transition: Transition.rightToLeft,
         ),
-        // GetPage(
-        //   name: AppRoutes.moviesVideoPage,
-        //   page: () => MovieVideoPage(movieId: Get.arguments,thumbnail:Get.arguments),
-        //   transition: Transition.rightToLeft,
-        // ),
+
         GetPage(
           name: AppRoutes.authPage,
           page: () => const AuthPage(),
@@ -64,6 +68,11 @@ class AppRoutes {
         GetPage(
           name: AppRoutes.watchList,
           page: () => const WatchlistPage(),
+          transition: Transition.rightToLeft,
+        ),
+        GetPage(
+          name: AppRoutes.searchPage,
+          page: () => const SearchPage(),
           transition: Transition.rightToLeft,
         ),
       ];

@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movie_app_demo/src/core/routes/app_routes.dart';
 import 'package:movie_app_demo/src/core/utils/constants.dart';
 import 'package:movie_app_demo/src/core/widgets/k_chached_network_image.dart';
 import 'package:movie_app_demo/src/features/categories/controller/categories_controller.dart';
@@ -21,17 +22,25 @@ class CategoriesBestSellerMovie extends StatelessWidget {
                 .map(
                   (element) => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Container(
-                  padding: const EdgeInsets.all(0.2),
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: KCachedNetworkImage(
-                      imgUrl:
-                      '${AppConstants.apiImagePath}${element.posterPath}',
+                child: InkWell(
+                  onTap: () {
+                    Get.toNamed(
+                      AppRoutes.movieDetails,
+                      arguments: element,
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(0.2),
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: KCachedNetworkImage(
+                        imgUrl:
+                        '${AppConstants.apiImagePath}${element.posterPath}',
+                      ),
                     ),
                   ),
                 ),

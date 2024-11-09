@@ -2,13 +2,17 @@ import 'dart:convert';
 import 'package:movie_app_demo/src/core/helper/helper_method.dart';
 import 'package:movie_app_demo/src/core/network/api_endpoints.dart';
 import 'package:movie_app_demo/src/core/network/api_handler.dart';
+import 'package:movie_app_demo/src/core/utils/private_keys.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AuthService {
   static Future<String?> getRequestToken() async {
     try {
+      Map<String,String> queryParams={
+        "api_key":apiKey
+      };
       var response = await ApiHandler.handleResponse(
-          await ApiHandler.getRequest(apiUrl: ApiEndpoints.getRequestTokenApi));
+          await ApiHandler.getRequest(apiUrl: ApiEndpoints.getRequestTokenApi,queryParams: queryParams));
       if (response['request_token'] != null) {
         return response['request_token'];
       } else {
@@ -41,6 +45,9 @@ class AuthService {
       final response = await ApiHandler.handleResponse(
         await ApiHandler.postRequest(
           apiUrl: ApiEndpoints.createSessionApi,
+          queryParams: {
+            "api_key":apiKey,
+          },
           body: jsonEncode(body),
         ),
       );

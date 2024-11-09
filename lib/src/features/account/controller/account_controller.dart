@@ -4,11 +4,12 @@ import 'package:movie_app_demo/src/core/helper/helper_method.dart';
 import 'package:movie_app_demo/src/core/network/api_endpoints.dart';
 import 'package:movie_app_demo/src/core/network/api_handler.dart';
 import 'package:movie_app_demo/src/core/service/local_storage_service.dart';
+import 'package:movie_app_demo/src/core/utils/private_keys.dart';
 import 'package:movie_app_demo/src/features/account/model/account_model.dart';
 
 class AccountController extends GetxController {
   Rx<AccountModel> accountList = AccountModel().obs;
-  RxnString sessionId=RxnString();
+  RxnString sessionId = RxnString();
 
   @override
   void onInit() {
@@ -21,8 +22,8 @@ class AccountController extends GetxController {
         key: LocalStorageKey.sessionId);
     kPrint("My SessionId2 $sessionId");
 
-    if (sessionId.value !=null) {
-     await fetchAccountData();
+    if (sessionId.value != null) {
+      await fetchAccountData();
     } else {
       kPrint("Session ID is null. Handle this case appropriately.");
     }
@@ -32,10 +33,11 @@ class AccountController extends GetxController {
     try {
       var response = await ApiHandler.handleResponse(
         await ApiHandler.getRequest(
-          apiUrl: ApiEndpoints.getAccountId(
-            sessionId: sessionId.value.toString(),
-          ),
-        ),
+            apiUrl: ApiEndpoints.getAccountId,
+            queryParams: {
+              "api_key": apiKey,
+              "session_id": sessionId.value.toString()
+            }),
       );
 
       if (response != null) {

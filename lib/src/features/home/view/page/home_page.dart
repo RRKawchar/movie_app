@@ -40,6 +40,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          Get.toNamed(AppRoutes.searchPage);
         },
         child: const Icon(Icons.search),
       ),
