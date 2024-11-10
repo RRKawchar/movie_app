@@ -13,8 +13,8 @@ Flutter Movie App || Android & iOS
 Resources :
 
 - [Flutter](https://docs.flutter.dev/)
-- [TMDB](https://developer.themoviedb.org/docs/getting-started)
-- [Getx](https://pub.dev/packages/get)
+- [TMDB API](https://developer.themoviedb.org/docs/getting-started)
+- [Getx Statemanagement](https://pub.dev/packages/get)
 
 
 Features :
